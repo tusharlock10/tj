@@ -1,7 +1,4 @@
-# tj
-This module is available on PyPi.
-You can use 'pip install tj' to directly install the tj module
+"A very simple short module containing useful functions"
 
-A python module contains useful functions, that you might need randomly.
 
-Use help(tj) to get information about all the functions and DATA present in the module.
+What's new in version 1.5-> Corrected some color values

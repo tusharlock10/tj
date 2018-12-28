@@ -27,9 +27,9 @@ Last modified: %s
 File Size: %s %s
 Last Accessed: %s
 Date Created: %s
+Version: %s
 
-
-Updated on: 26th December 2018 4:45PM
+Updated on: 28th December 2018 10:15PM
 
     Edit 1: In this version, support for RGB color values is added
           eg- tj.colors[BLACK]=[0,0,0], tj.colors[WHITE]=[255,255,255], etc.
@@ -39,20 +39,24 @@ Updated on: 26th December 2018 4:45PM
           simple class, which you can use in your programs to communicate between
           two computers locally. Both of these computers should run an instance of this
           class. THE FUNCTIONALITY IS STILL IN ALPHA PHASE.
+
+    Edit 3: Corrected some values in colors.
 ''' % (warning,
     time.asctime(time.localtime(os.stat(__file__)[-2])),
 os.stat(__file__)[6],"Bytes",
 time.asctime(time.localtime(os.stat(__file__)[-3])),
-time.asctime(time.localtime(os.stat(__file__)[-1])))
+time.asctime(time.localtime(os.stat(__file__)[-1])), __version__)
+
+__version__="1.5"
 
 
 
-colors = {"BLACK": [0, 0, 0], "WHITE": [255, 255, 255], "GOLD": [212, 175, 55], "LIGHT YELLOW": [255, 255, 224],
+colors = {"BLACK": [0, 0, 0], "WHITE": [255, 255, 255], "GOLD": [255,223,0], "METALLIC GOLD": [212,175,55], "LIGHT YELLOW": [255, 255, 224],
           "YELLOW": [255, 255, 40], "ORANGE": [255, 165, 0], "DARK ORANGE": [255, 140, 0], "RED": [255, 0, 0],
           "DARK RED": [135, 0, 0], "MAROON": [120, 0, 0], "BROWN": [165, 42, 42], "PINK": [255, 192, 203],
           "HOT PINK": [255, 105, 180], "LIGHT PINK": [255, 182, 193], "VIOLET": [148, 0, 211], "PURPLE": [160, 32, 240],
-          "INDIGO": [75, 0, 130], "BLUE": [0, 0, 255], "SKY BLUE": [0, 175, 130], "DARK BLUE": [0, 0, 139],
-          "GREEN": [0, 200, 0], "DARK GREEN": [0, 139, 0], "LIME": [0, 255, 0], "FOREST GREEN": [35, 140, 35],
+          "INDIGO": [75, 0, 130], "BLUE": [0, 0, 255], "SKY BLUE": [135, 206, 250], "DARK BLUE": [0, 0, 139],
+          "LIGHT GREEN": [0, 200, 0], "GREEN":[50,205,50], "DARK GREEN": [0, 139, 0], "LIME": [0, 255, 0], "FOREST GREEN": [35, 140, 35],
           "GRAY": [128, 128, 128], "CRIMSON": [220, 20, 60], "BRICK": [178, 34, 34], "FUCHSIA": [255, 0, 255],
           "LIGHT GRAY": [211, 211, 211], "SILVER": [92, 192, 192], "DARK GRAY": [105, 105, 105], "OLIVE": [128, 128, 0],
           "TEAL": [0, 128, 128], "CYAN": [0, 255, 255], "CHARCOAL": [54, 70, 80], "CHOCOLATE": [210, 105, 30],

@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(  
     name="tj",
-    version="1.3",
+    version="1.5",
     description="A very simple short module containing useful functions",
     long_description="A module that have powerful and simple functions. Read README.txt for more info",
     author="Tushar Jain",
