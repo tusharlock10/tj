@@ -1,6 +1,9 @@
 import os, sys, time
 from socket import *
 import os.path
+
+__version__="1.6.1"
+
 try:
     from autopy import bitmap
     warning=""
@@ -47,7 +50,7 @@ os.stat(__file__)[6],"Bytes",
 time.asctime(time.localtime(os.stat(__file__)[-3])),
 time.asctime(time.localtime(os.stat(__file__)[-1])), __version__)
 
-__version__="1.5"
+
 
 
 
