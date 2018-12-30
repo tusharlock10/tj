@@ -1,8 +1,9 @@
 from setuptools import setup
+import tj
 
 setup(  
     name="tj",
-    version="1.6.1",
+    version=tj.__version__,
     description="A very simple short module containing useful functions",
     long_description="A module that have powerful and simple functions. Read README.txt for more info",
     author="Tushar Jain",

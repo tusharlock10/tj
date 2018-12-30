@@ -2,7 +2,7 @@ import os, sys, time
 from socket import *
 import os.path
 
-__version__="1.6.1"
+__version__="1.7.1"
 
 try:
     from autopy import bitmap
@@ -32,7 +32,7 @@ Last Accessed: %s
 Date Created: %s
 Version: %s
 
-Updated on: 28th December 2018 10:15PM
+Updated on: 30th December 2018 4:50 PM
 
     Edit 1: In this version, support for RGB color values is added
           eg- tj.colors[BLACK]=[0,0,0], tj.colors[WHITE]=[255,255,255], etc.
@@ -44,6 +44,8 @@ Updated on: 28th December 2018 10:15PM
           class. THE FUNCTIONALITY IS STILL IN ALPHA PHASE.
 
     Edit 3: Corrected some values in colors.
+
+    Edit 4: Added transform_color function
 ''' % (warning,
     time.asctime(time.localtime(os.stat(__file__)[-2])),
 os.stat(__file__)[6],"Bytes",
@@ -107,6 +109,45 @@ class Communicate:
     def close(self):
         """Use this method to close the socket connection"""
         self.UDPSock.close()
+
+
+def transform_color(color1, color2, skipR=1, skipG=1, skipB=1):
+    """
+transform_color(color1, color2, skipR=1, skipG=1, skipB=1)
+
+
+This function takes 2 color1 and color2 RGB color arguments, and then returns a
+list of colors inbetween the color1 and color2
+
+eg- tj.transform_color([0,0,0],[10,10,20]) returns a list:-
+[[0, 0, 0], [1, 1, 1], [2, 2, 2] ... [9, 9, 9], [10, 10, 10], [10, 10, 11] ... [10, 10, 20]]
+
+This function is very useful for creating color fade or color transition effects in pygame.
+
+There are 3 optional arguments, which are skip arguments set to 1 by default.
+"""
+    L=[] 
+    if (color1[0]<color2[0]):i=list(range(color1[0], color2[0]+1, skipR))
+    else:i=list(range(color2[0], color1[0]+1, skipR))[::-1]
+    if i==[]:i=[color1[0]]
+  
+    if (color1[1]<color2[1]):j=list(range(color1[1], color2[1]+1, skipG))
+    else:j=list(range(color2[1], color1[1]+1, skipG))[::-1]
+    if j==[]:j=[color1[1]]
+
+    if (color1[2]<color2[2]):k=list(range(color1[2], color2[2]+1, skipB))
+    else:k=list(range(color2[2], color1[2]+1, skipB))[::-1]
+    if k==[]:k=[color1[2]]
+
+    x=max(len(i), len(j), len(k))
+    for m in range(len(i), x):i+=[i[-1]]
+    for m in range(len(j), x):j+=[j[-1]]
+    for m in range(len(k), x):k+=[k[-1]]
+
+    for m in range(x):
+        l=[i[m], j[m], k[m]]
+        L+=[l]
+    return L
 
 
 def allcolors(color=None, flag=False):
