@@ -1,7 +1,7 @@
 import os, sys, time, shutil
 import os.path
 
-__version__="1.9.3"
+__version__="1.9.4"
 
 __doc__='''
 
@@ -401,6 +401,7 @@ def convert_currency(c1, c2,rate=None, flag=True):
         amt2=amt1*rate
         amt2=round(amt2, 3)
         if flag:print(f"{amt1} {type1} equals {amt2} {type2}")
+    return f'{amt2} {type2}'
         
 
         
