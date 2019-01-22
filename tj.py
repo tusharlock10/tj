@@ -1,18 +1,7 @@
-import os, sys, time
-from socket import *
+import os, sys, time, shutil
 import os.path
 
-__version__="1.7.1"
-
-try:
-    from autopy import bitmap
-    warning=""
-except:
-    warning="""\n\n------------------------------------\n\n
-WARNING: autopy module is not installed.
-Use 'pip install autopy' in command line to install autopy
-\n\n------------------------------------\n\n
-"""
+__version__="1.9.3"
 
 __doc__='''
 
@@ -22,7 +11,6 @@ __doc__='''
    | |    __| |
    |_|    \___/ 
 
-%s
 
 A module that can be used to to multiple common tasks that otherwise you
 would do by writing long lines of code
@@ -32,21 +20,8 @@ Last Accessed: %s
 Date Created: %s
 Version: %s
 
-Updated on: 30th December 2018 4:50 PM
-
-    Edit 1: In this version, support for RGB color values is added
-          eg- tj.colors[BLACK]=[0,0,0], tj.colors[WHITE]=[255,255,255], etc.
-          To see all available colour values, call tj.allcolors()
-
-    Edit 2: In this version, Communicate class is added. It is useful and
-          simple class, which you can use in your programs to communicate between
-          two computers locally. Both of these computers should run an instance of this
-          class. THE FUNCTIONALITY IS STILL IN ALPHA PHASE.
-
-    Edit 3: Corrected some values in colors.
-
-    Edit 4: Added transform_color function
-''' % (warning,
+Updated on: 1st January 10:00 PM
+''' % (
     time.asctime(time.localtime(os.stat(__file__)[-2])),
 os.stat(__file__)[6],"Bytes",
 time.asctime(time.localtime(os.stat(__file__)[-3])),
@@ -71,44 +46,6 @@ colors = {"BLACK": [0, 0, 0], "WHITE": [255, 255, 255], "GOLD": [255,223,0], "ME
 
 color_names = list(colors.keys())
 
-
-
-class Communicate:
-    """In this class, sockets is used communicate between 2 computers
-        Usage:
-        1) Define an instance C=Communicate(host_tar)  # host_tar is the local IP address of
-                                                       # the target / the other computer
-        2) Use this instance in a loop
-        3) Use C.sendData(data) # to send data to your partner computer. data should be string
-                                 # also the data should not be more than 4096 bytes long.
-
-        4) Use C.getData() # to get the data transmitted from your partner computer
-        5) Use C.close() # to close the connections."""
-    
-    def __init__(self,host_tar):
-        """Initializer"""
-        self.host_tar=host_tar
-        self.host=gethostbyname(gethostname())
-        self.port = 13000
-        self.buf = 4096
-        self.addr = (self.host, self.port)
-        self.addr_tar = (self.host_tar, self.port)
-        self.UDPSock = socket(AF_INET, SOCK_DGRAM)
-        self.UDPSock.bind(self.addr)
-              
-    def sendData(self,data):
-        """Use this method to send data"""
-        self.UDPSock.sendto(data.encode(), self.addr_tar)
-
-    def getData(self):
-        """Use this method to get data"""
-        (data, self.addr) = self.UDPSock.recvfrom(self.buf)
-        data=data.decode()
-        return data
-
-    def close(self):
-        """Use this method to close the socket connection"""
-        self.UDPSock.close()
 
 
 def transform_color(color1, color2, skipR=1, skipG=1, skipB=1):
@@ -179,23 +116,19 @@ flag=True returns the results in a list, and prints nothing."""
 def get_filename(path):
     """Takes full path of the file as argument
 Gives the file name from the full path of the file with extension"""
-    import ntpath
-    head, tail = ntpath.split(path)
-    return tail or ntpath.basename(head)
+    path=os.path.abspath(path)
+    x=os.path.basename(path)
+    return x
 
 
 def get_foldername(path):
     """Takes a path as a string as argument and returns the name of the folder of the file"""
-    s=path[::-1]
-    a=0
-    s2=''
-    for i in s:
-        if (i=="//") or (i=="\\"):
-            a+=1
-        if a>0:
-            s2+=i
-    s3=s2[::-1]
-    return s3
+    #x=os.path.dirname(path)
+    path=os.path.abspath(path)
+    temp=path.split("\\")
+    temp=temp[:-1]
+    x="\\".join(temp)
+    return x
 
 
 def get_files_in_folder(path):
@@ -283,11 +216,14 @@ def email(email_id, password, recievers, body, subject="Email sent by TJ module 
 def is_Folder(path):
     """Takes the path of the folder as argument
 Returns is the path is a of a Folder or not in bool"""
-    try:
-        f = open(path, "r")
-        return True
-    except:
-        return False
+    if os.path.isdir(path):return True
+    else:return False
+
+def is_File(path):
+    """Takes the path of the folder as argument
+Returns is the path is a of a Folder or not in bool"""
+    if os.path.isfile(path):return True
+    else:return False
 
 
 def get_startup_path():
@@ -309,7 +245,7 @@ eg:
     for user in user_L:
         if user in ['Public', 'Default', 'All Users', 'Default User']:
             continue
-        if is_Folder(a + user):
+        if not is_Folder(a + user):
             continue
         path = a + user + b
         L += [path]
@@ -394,18 +330,92 @@ def passed_time(flag=True):
 
 
 def take_src(name="src.py", DIR=""):
-    if warning!="":
-        raise ModuleNotFoundError("autopy module not found.\nInstall autopy mudule using 'pip install autopy'")
     """Args->
     name-> name of the file with .png or .bmp extension
     DIR-> Folder where you want to save the file
     name="src.py" by default and DIR="" by default (same as working directory)
     Prints and saves the screen shot in .png or .bmp format in a location"""
+
+    try:from autopy import bitmap
+    except:raise ModuleNotFoundError("autopy module not found.\nInstall autopy module using 'pip install autopy'")
+    
     path=os.path.join(DIR,name)
     bitmap2 = bitmap.capture_screen()
     bitmap2.save(path)
 
 
-def remove_dir(path):
-    '''Deletes a directory which is either empty or non-empty'''
-    shutil.rmtree(path)
+def convert_currency(c1, c2,rate=None, flag=True):
+    """Args->
+    c1-> This is the currency which will be the input
+    c2-> This is the currency which will be the output
+
+    c1 should consist of amount and type in a single string, seperated
+        by a space
+        eg. '100 EUR' where 100 is the amount and EUR is the type
+        
+    c2 should only consist of currency only
+        eg. 'INR' or 'USD'
+
+        *The purpose of using this string format is to reduce confusion.
+        '40 USD' in a single string and 'INR' in another string gives
+        clear indication of which currency is being converted in which.
+        
+    
+    rate-> This is the rate of conversion. This argument is set
+        to None by default. When rate is None, the rate of conversion
+        will be automatically fetched from the internet. When rate is
+        provided by the user, that rate will be used instead. The rate
+        should be such that c2=c1*rate
+
+    flag-> True by default. If flag is False, all print statements of the
+        function will be disabled.
+
+    converts currency c1 to c2 using the currency rate 'rates'. This 'rates'
+    Argument will be fetched from the internet automatically from the internet
+    or will be provided by the user.
+
+    An example of usage is:
+    convert_currency('50 USD', 'INR') would result in 3550INR (taking 1USD = 71INR)
+
+    convert_currency('10 EUR', 'USD', 1.1) would result in 11USD (user gives 1EUR = 1.1USD)"""
+
+    amt1, type1=c1.split(" ")
+    amt1=float(amt1)
+    amt1=round(amt1, 3)
+    type2=c2
+
+    if rate==None:
+        try:from forex_python.converter import CurrencyRates
+        except:raise ModuleNotFoundError("forex_python module not found.\nInstall forex_python module using 'pip install forex-python'")
+
+        if flag:print('Fetchig currency exchange rates from internet...\n\n')
+        c = CurrencyRates()
+        All_rates=c.get_rates(type1)    # All the exchange rates will be based on USD
+        rate=All_rates[type2]
+        amt2=amt1*rate
+        amt2=round(amt2, 3)
+
+        print(f"{amt1} {type1} equals {amt2} {type2}")
+
+    else:
+        amt2=amt1*rate
+        amt2=round(amt2, 3)
+        if flag:print(f"{amt1} {type1} equals {amt2} {type2}")
+        
+
+        
+
+
+def delete(path):
+    '''Takes a path as an argument
+Deletes the file/folder to which that path belongs.
+
+Autoatically determines wether the path is a file/folder and
+is it an empty folder or non-empty folder.'''
+    try:shutil.rmtree(path)
+    except:
+        try:
+            os.remove(path)
+        except:
+            raise FileNotFoundError(path+" file cannot be deleted, it might not exist, or due to no Admin rights")
+
