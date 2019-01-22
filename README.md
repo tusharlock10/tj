@@ -22,3 +22,5 @@ What's new in version 1.9.2-> Fixed some bugs
 What's new in version 1.9.3-> Added convert_currency function, which works on forex_python module
 
 What's new in version 1.9.4-> Fixed some bugs
+
+What's new in version 1.9.5-> Fixed some bugs

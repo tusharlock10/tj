@@ -1,7 +1,7 @@
 import os, sys, time, shutil
 import os.path
 
-__version__="1.9.4"
+__version__="1.9.5"
 
 __doc__='''
 
@@ -381,8 +381,10 @@ def convert_currency(c1, c2,rate=None, flag=True):
 
     amt1, type1=c1.split(" ")
     amt1=float(amt1)
+    type1=type1.upper()
     amt1=round(amt1, 3)
     type2=c2
+    type2=type2.upper()
 
     if rate==None:
         try:from forex_python.converter import CurrencyRates
@@ -395,7 +397,7 @@ def convert_currency(c1, c2,rate=None, flag=True):
         amt2=amt1*rate
         amt2=round(amt2, 3)
 
-        print(f"{amt1} {type1} equals {amt2} {type2}")
+        if flag:print(f"{amt1} {type1} equals {amt2} {type2}")
 
     else:
         amt2=amt1*rate
