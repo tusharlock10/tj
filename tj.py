@@ -1,7 +1,8 @@
-import os, sys, time, shutil
+import os, sys, time, shutil, random
 import os.path
+import pyAesCrypt as crypt
 
-__version__="1.9.5"
+__version__="2.1.0"
 
 __doc__='''
 
@@ -14,18 +15,11 @@ __doc__='''
 
 A module that can be used to to multiple common tasks that otherwise you
 would do by writing long lines of code
-Last modified: %s
-File Size: %s %s
-Last Accessed: %s
-Date Created: %s
+
 Version: %s
 
-Updated on: 1st January 10:00 PM
-''' % (
-    time.asctime(time.localtime(os.stat(__file__)[-2])),
-os.stat(__file__)[6],"Bytes",
-time.asctime(time.localtime(os.stat(__file__)[-3])),
-time.asctime(time.localtime(os.stat(__file__)[-1])), __version__)
+Updated on: 26rd January 6:20 PM
+''' % ( __version__)
 
 
 
@@ -156,18 +150,29 @@ Gives factorial of that argument"""
 
 
 def email(email_id, password, recievers, body, subject="Email sent by TJ module Python", attachments=[]):
-    """syntax:
-    email(email_id,password,recievers,body,subject="Email sent by TJ module Python",attachment=False)
+    """Args->
 
-    subject and attachment parameters are optional.
-    email_id - the email id of the sender
-    password - password of the sender
-    recievers - the list of email id of recievers
-    body - the body of the email in string
-    subject - subject of email
-    attachments - a list of paths of files which you need to send 
-                  as attachment
-                  """
+    email_id-> The email id of the sender.
+    
+    password-> The password of email the sender.
+    
+    recievers-> The list of email id of recievers. recievers argument
+    should compulsorily be a list, even if there is just 1 reciever.
+    
+    body-> The body of the email.
+    
+    subject-> subject of email.
+    
+    attachments-> A list of paths of files which you need to send
+    as attachment. It is an optional argument.
+
+    This funtion uses the SMTP librry t send an email to the recivers using
+    the email id of the sender. It can also send attachments in the email.
+
+    *If you are using Gmail, then you might want to change the settings of your
+    email account to allow 3rd party apps to send or recieve emails, or else
+    you will not be able to send emails using that email id.
+    """
     import smtplib
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
@@ -306,12 +311,12 @@ def passed_time(flag=True):
     eg-
     import tj
     a=tj.passed_time()
-    print a.next(); time.sleep(5)
-    print a.next() #This is used after waiting 5 sec.
+    print(a.next()); time.sleep(5)
+    print(a.next()) #This is used after waiting 5 sec.
     b=tj.passed_time()
-    print b.next(); time.sleep(5)
-    print a.next(); time.sleep(5)
-    print b.next()
+    print(b.next()); time.sleep(5)
+    print(a.next()); time.sleep(5)
+    print(b.next())
 >>>0.0
 >>>5.0
 >>>0.0
@@ -329,7 +334,7 @@ def passed_time(flag=True):
             yield time.time()-t
 
 
-def take_src(name="src.py", DIR=""):
+def take_src(name="src.png", DIR=""):
     """Args->
     name-> name of the file with .png or .bmp extension
     DIR-> Folder where you want to save the file
@@ -404,21 +409,132 @@ def convert_currency(c1, c2,rate=None, flag=True):
         amt2=round(amt2, 3)
         if flag:print(f"{amt1} {type1} equals {amt2} {type2}")
     return f'{amt2} {type2}'
+
+
+def getRandomString(L=None,number=None):
+    '''Args->
+
+    L-> optional argument, the function will return a random string of
+    characters from the characters provided in the list L. Characters are case-sensitive
+    Set to none by default, so any visible characters incluting a-z, A-Z, 0-9 and special
+    symbols will be included. Characters from the order 33-126 will be included.
+
+    number-> Length of the string.Set to None by default. When number=None, it will be
+    determined randomly in the range 8-20.
+
+    This funtion provides a sting of random characters.
+
+    *make sure you type getRandomCharacters(number=8) if you want to change the
+    number of characters instead of getRandomCharacters(8).
+    '''
+    s=''
+    if L==None:
+        L=[chr(i) for i in range(33,127)]
+    for j in range(number):
+        temp=str(random.choice(L))
+        s+=temp
+    return s
         
 
+def encrypt(InputFile, OutputFile=None, password=None, delete=False):
+    '''Args->
+
+    InputFile-> This is the file which will undergo encryption
+
+    OutputFile-> This is the file you will get after encryption. It
+    is an optional argument and set to None by default. When it is None,
+    the OutputFile will have the same name an InputFile, and the original
+    InputFile will be deleted.
+
+    password-> The password which you will use to encrypt the file. It is an
+    optional argument. It is set to None by default, and a passoword
+    will be generated randomly consisting of only numbers, of length 8-20.
+
+    delete-> This is an optional argument, set to False by default. If delete=True,
+    the original InputFile will be deleted, and you will be left with the OutputFile.
+    However, if OutputFile is None, or if OutputFile==InputFile, then it will not delete
+    the OutputFile/InputFile.
+
+    This function encrypts a file using AES-256 encryption. It takes a non-encrypted file
+    as InputFile and then encrypts it as OutputFile.
+
+    *The buffer-size used for encryption is 32*1024.
+'''
+    
+    tempFile='temp.tjenc'
+    
+    try:os.remove(tempFile)
+    except:pass
+    try:os.remove(OutputFile)
+    except:pass
+    if password==None:
+        password=getRandomString([str(i) for i in range()])
+
+    crypt.encryptFile(InputFile, tempFile, password, bufferSize)
+
+    if delete:os.remove(InputFile)
+
+    if (OutputFile==None) or (OutputFile==InputFile):
+        OutputFile=InputFile
+        os.remove(InputFile)
+
+    os.rename(tempFile, OutputFile)
+    return password
+
+
+def decrypt(InputFile, password, OutputFile=None, delete=False):
+    '''Args->
+
+    InputFile-> This is the file which will undergo decryption, it
+    is assumed that InputFile was earlier encrypted with the 'encrypt'
+    function of this module.
+
+    password-> The password which you used to encrypt the file.
+
+    OutputFile-> This is the file you will get after decryption. It
+    is an optional argument and set to None by default. When it is None,
+    the OutputFile will have the same name an InputFile, and the original
+    InputFile will be deleted.
+
+    delete-> This is an optional argument, set to False by default. If delete=True,
+    the original InputFile will be deleted, and you will be left with the OutputFile.
+    However, if OutputFile is None, or if OutputFile==InputFile, then it will not delete
+    the OutputFile/InputFile.
+
+    This function decrypts a file encrypted with AES-256 encryption. It takes an encrypted file
+    as InputFile and then decrypts it as OutputFile.
+
+    *The buffer-size used for decryption is 32*1024.
+'''
+    tempFile='temp.tjenc'
+    
+    try:os.remove(tempFile)
+    except:pass
+    try:os.remove(OutputFile)
+    except:pass
+
+    crypt.decryptFile(InputFile, tempFile, password, bufferSize)
+
+    if delete:os.remove(InputFile)
+
+    if (OutputFile==None) or (OutputFile==InputFile):
+        OutputFile=InputFile
+        os.remove(InputFile)
+
+    os.rename(tempFile, OutputFile)
+
         
-
-
 def delete(path):
     '''Takes a path as an argument
-Deletes the file/folder to which that path belongs.
+The path can be of a folder or a file.
 
 Autoatically determines wether the path is a file/folder and
-is it an empty folder or non-empty folder.'''
+is it an empty folder or non-empty folder and then deletes it.'''
     try:shutil.rmtree(path)
     except:
         try:
             os.remove(path)
         except:
             raise FileNotFoundError(path+" file cannot be deleted, it might not exist, or due to no Admin rights")
+
 
