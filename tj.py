@@ -1,8 +1,12 @@
-import os, sys, time, shutil, random
+import os, sys, time, shutil, random, base64
 import os.path
 import pyAesCrypt as crypt
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+from cryptography.fernet import Fernet
 
-__version__="2.1.0"
+__version__="2.1.1"
 
 __doc__='''
 
@@ -18,7 +22,7 @@ would do by writing long lines of code
 
 Version: %s
 
-Updated on: 26rd January 6:20 PM
+Updated on: 28rd January 10:10 PM
 ''' % ( __version__)
 
 
@@ -436,7 +440,7 @@ def getRandomString(L=None,number=None):
     return s
         
 
-def encrypt(InputFile, OutputFile=None, password=None, delete=False):
+def encryptFile(InputFile, OutputFile=None, password=None, delete=False):
     '''Args->
 
     InputFile-> This is the file which will undergo encryption
@@ -482,7 +486,7 @@ def encrypt(InputFile, OutputFile=None, password=None, delete=False):
     return password
 
 
-def decrypt(InputFile, password, OutputFile=None, delete=False):
+def decryptFile(InputFile, password, OutputFile=None, delete=False):
     '''Args->
 
     InputFile-> This is the file which will undergo decryption, it
@@ -536,5 +540,52 @@ is it an empty folder or non-empty folder and then deletes it.'''
             os.remove(path)
         except:
             raise FileNotFoundError(path+" file cannot be deleted, it might not exist, or due to no Admin rights")
+
+
+def __keyGenerator(p):
+    '''This funtion is not for use outside this module'''
+    password_provided = p
+    password = password_provided.encode()   # Convert string to binary string
+    kdf = PBKDF2HMAC(
+        algorithm=hashes.SHA256(),
+        length=32,
+        salt=b'',
+        iterations=5000,
+        backend=default_backend()
+    )
+    key = base64.urlsafe_b64encode(kdf.derive(password)) # Can only use kdf once
+    return key
+
+def encrypt(message, password):
+    '''Args->
+
+    message -> This is the string which is going to be encrypted
+
+    password -> This the password which you will use for to encryption
+
+    This function is used to easily encrypt strings, using AES encryption.
+    
+'''
+    key=__keyGenerator(password)
+    cipher=Fernet(key)
+    e_message=cipher.encrypt(message.encode())
+    return e_message.decode()
+
+
+def decrypt(e_message, password):
+    '''Args->
+
+    e_message -> This is the encrypted string which is going to be decrypted.
+    This string should be encrypted by the encrypt(...) function of this module.
+
+    password -> This the password which you will have used for encryption
+
+    This function is used to easily decrypt strings, which were encrypted by
+    the encrypt(...) function of this module.
+'''
+    key=__keyGenerator(password)
+    cipher=Fernet(key)
+    d_message=cipher.decrypt(e_message.encode())
+    return d_message.decode()
 
 

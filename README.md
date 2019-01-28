@@ -30,3 +30,8 @@ converted to .exe file in pyinstaller, py2exe and cx_Freeze.
 
 What's new in version 2.1.0-> Added functions encrypt(...) and decrypt(...) for easy AES-256 enc/decryption.
 Also, the documentation of some functions have been changed, including email(...) and delete(...)
+
+What's new in version 2.1.1-> Added new functions encrypt(...) and decrypt(...) and changed the
+name of the older functions from encrypt(...) and decrypt(...) to encryptFile(...) and decryptFile(...).
+New enc/decrypt(...) functions are used only for strings. enc/decryptFile(...) functions are
+used only for Files.
