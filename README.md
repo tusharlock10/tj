@@ -35,3 +35,5 @@ What's new in version 2.1.1-> Added new functions encrypt(...) and decrypt(...) 
 name of the older functions from encrypt(...) and decrypt(...) to encryptFile(...) and decryptFile(...).
 New enc/decrypt(...) functions are used only for strings. enc/decryptFile(...) functions are
 used only for Files.
+
+What's new in version 2.1.3-> Added HTML email functationality in email(...) funtion.

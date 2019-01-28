@@ -6,7 +6,7 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.fernet import Fernet
 
-__version__="2.1.1"
+__version__="2.1.3"
 
 __doc__='''
 
@@ -153,7 +153,7 @@ Gives factorial of that argument"""
     return r
 
 
-def email(email_id, password, recievers, body, subject="Email sent by TJ module Python", attachments=[]):
+def email(email_id, password, recievers, body, subject="Email sent by TJ module Python", attachments=[], email_type='plain'):
     """Args->
 
     email_id-> The email id of the sender.
@@ -169,6 +169,11 @@ def email(email_id, password, recievers, body, subject="Email sent by TJ module 
     
     attachments-> A list of paths of files which you need to send
     as attachment. It is an optional argument.
+
+    email_type-> The type of email text you are going to send. It is set to
+    'text' by default, but by setting email_type to 'html', you will be able to
+    send beautiful looking emails.In this case, you need to provide the html code
+    insetead of any body, i.e. body will contain the html code.
 
     This funtion uses the SMTP librry t send an email to the recivers using
     the email id of the sender. It can also send attachments in the email.
@@ -196,7 +201,9 @@ def email(email_id, password, recievers, body, subject="Email sent by TJ module 
     msg['To'] = ', '.join(emailto)
     msg['Subject'] = subject
 
-    msg.attach(MIMEText(''.join(body)))
+    if email_type.upper()=='HTML':
+        msg.attach(MIMEText(''.join(body), 'html'))
+    else:msg.attach(MIMEText(''.join(body)))
 
     ### ATTACH FILES
     for item in attachments:
@@ -293,7 +300,7 @@ If Flag is true, it returns in format like 2.3 GB, 5.0 MB, etc.
 
 def get_last_modified(path,flag=False):
     '''Get the date the the file was last modified of the.
-    Arguments:\n path -> the path of the file
+    Arguments:\n path-> the path of the file
     flag-> Its a bool value, when False, the time is returned in
     Epoch seconds, if flag is True, time is returned in proper format.'''
     try:a=os.stat(path)[-2]
@@ -559,9 +566,9 @@ def __keyGenerator(p):
 def encrypt(message, password):
     '''Args->
 
-    message -> This is the string which is going to be encrypted
+    message-> This is the string which is going to be encrypted
 
-    password -> This the password which you will use for to encryption
+    password-> This the password which you will use for to encryption
 
     This function is used to easily encrypt strings, using AES encryption.
     
@@ -575,10 +582,10 @@ def encrypt(message, password):
 def decrypt(e_message, password):
     '''Args->
 
-    e_message -> This is the encrypted string which is going to be decrypted.
+    e_message-> This is the encrypted string which is going to be decrypted.
     This string should be encrypted by the encrypt(...) function of this module.
 
-    password -> This the password which you will have used for encryption
+    password-> This the password which you will have used for encryption
 
     This function is used to easily decrypt strings, which were encrypted by
     the encrypt(...) function of this module.
