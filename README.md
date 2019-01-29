@@ -37,3 +37,6 @@ New enc/decrypt(...) functions are used only for strings. enc/decryptFile(...) f
 used only for Files.
 
 What's new in version 2.1.3-> Added HTML email functationality in email(...) funtion.
+
+What's new in version 2.1.4-> Fixed HTML email functionality bug where pictures won't show 
+in the email, but the HTML content does show up.

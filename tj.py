@@ -6,7 +6,7 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.fernet import Fernet
 
-__version__="2.1.3"
+__version__="2.1.4"
 
 __doc__='''
 
@@ -22,7 +22,7 @@ would do by writing long lines of code
 
 Version: %s
 
-Updated on: 28rd January 10:10 PM
+Updated on: 29rd January 4:15 PM
 ''' % ( __version__)
 
 
@@ -153,7 +153,8 @@ Gives factorial of that argument"""
     return r
 
 
-def email(email_id, password, recievers, body, subject="Email sent by TJ module Python", attachments=[], email_type='plain'):
+def email(email_id, password, recievers, body, subject="Email sent by TJ module Python", attachments=[], email_type='plain', html_resources=[]):
+    
     """Args->
 
     email_id-> The email id of the sender.
@@ -175,7 +176,40 @@ def email(email_id, password, recievers, body, subject="Email sent by TJ module 
     send beautiful looking emails.In this case, you need to provide the html code
     insetead of any body, i.e. body will contain the html code.
 
-    This funtion uses the SMTP librry t send an email to the recivers using
+    html_resources-> If your html page contains pictures, then your will have to
+    send the path of those pictures in the form of a list. You also have to edit your
+    html file such that in all the image tags, src="cid:res<number>", instead of
+    writing the pathof the file in the image tag. Also, you need to rename all the
+    image files accordingly as res0.png, res1.png, res2.jpg, etc.
+
+    eg.
+    HTML code:
+    <html>
+    .
+    .
+    <image src="cid:res0" ...>
+    .
+    .
+    . . .<image src="cid:res1"...>
+    .
+    .
+    <image src="cid:res2"...>
+    .
+    .
+    
+    <\html>
+
+    and here, html_resources=['images\\res0.png','images\\res1.png','images\\res2.jpg']
+    
+    # So all the image paths should be replaced by "cid:res<number>" and this
+    number should be a proper sequence of 0,1,2,3 and so on. Any error in this part,
+    would result into not showing up your image.
+
+    *Also it is adviced to rename the files accordingly to their cid, as shown in the
+    above example.
+    
+
+    This funtion uses the SMTP library to send an email to the recivers using
     the email id of the sender. It can also send attachments in the email.
 
     *If you are using Gmail, then you might want to change the settings of your
@@ -186,6 +220,7 @@ def email(email_id, password, recievers, body, subject="Email sent by TJ module 
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
     from email.mime.base import MIMEBase
+    from email.mime.image import MIMEImage
 
     uname = email_id
     pword = password
@@ -204,6 +239,15 @@ def email(email_id, password, recievers, body, subject="Email sent by TJ module 
     if email_type.upper()=='HTML':
         msg.attach(MIMEText(''.join(body), 'html'))
     else:msg.attach(MIMEText(''.join(body)))
+
+    for i in range(len(html_resources)):
+        resource=html_resources[i]
+        f=open(resource,'rb')
+        data=f.read()
+        f.close()
+        msgRes = MIMEImage(data)
+        msgRes.add_header('Content-ID', f'<res{i}>')
+        msg.attach(msgRes)
 
     ### ATTACH FILES
     for item in attachments:
