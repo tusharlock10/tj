@@ -1,12 +1,13 @@
-import os, sys, time, shutil, random, base64
+import os, sys, time, shutil, random, base64, hashlib
 import os.path
 import pyAesCrypt as crypt
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.fernet import Fernet
+import msvcrt as m
 
-__version__="2.1.4"
+__version__="2.2.5"
 
 __doc__='''
 
@@ -22,7 +23,7 @@ would do by writing long lines of code
 
 Version: %s
 
-Updated on: 29rd January 4:15 PM
+Updated on: 29rd January 9:05 PM
 ''' % ( __version__)
 
 
@@ -638,5 +639,64 @@ def decrypt(e_message, password):
     cipher=Fernet(key)
     d_message=cipher.decrypt(e_message.encode())
     return d_message.decode()
+
+
+def pinput(prompt='',symbol='*'):
+    '''Args->
+
+    prompt-> Like the input() method, pinput also
+    accepts a prompt string, which will be displayed
+    to the user. It is an optional argument.
+
+    symbol-> This the symbol which will be shown instead
+    of characters during typing of password. It is set to
+    * by default. You can change it to # or $ or x or even
+    an empty string.
+
+    pinput() (pssword-input) is a function, which makes entering
+    sensitive data secure, by hiding the characters. This function
+    clears the screen, so keep that in mind. And copy pasting of 
+    passwords does not work here.
+'''
+    os.system('cls')
+    print(prompt, end='')
+    s = ''
+    sys.stdout.flush()
+    while True:
+
+        c = m.getch()
+        if ord(c) == 8:
+            os.system('cls')
+            print(prompt, end='')
+            s = s[:-1]
+            print(symbol*len(s), end='')
+            sys.stdout.flush()
+            continue
+        
+        c = c.decode()
+        sys.stdout.flush()
+        if c == '\r':
+            break
+        s += c
+        print('*', end='')
+        sys.stdout.flush()
+    os.system('cls')
+    print(prompt+(symbol*len(s)))
+    
+    return s
+
+
+def make_hash(string):
+    '''Args->
+
+    string-> This is the string which you want to convert
+    to hash.
+
+    This function returns the hash of a string, using SHA256
+    algorithm'''
+    
+    hash_object = hashlib.sha256(string.encode())
+    digest = hash_object.digest()
+    return digest.decode()
 
 

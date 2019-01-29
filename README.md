@@ -40,3 +40,7 @@ What's new in version 2.1.3-> Added HTML email functationality in email(...) fun
 
 What's new in version 2.1.4-> Fixed HTML email functionality bug where pictures won't show 
 in the email, but the HTML content does show up.
+
+What's new in version 2.2.1-> Added make_hash(...) and pinput(...) functions
+
+What's new in version 2.2.5-> Removed bugs
