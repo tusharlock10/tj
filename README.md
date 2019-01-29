@@ -43,4 +43,4 @@ in the email, but the HTML content does show up.
 
 What's new in version 2.2.1-> Added make_hash(...) and pinput(...) functions
 
-What's new in version 2.2.5-> Removed bugs
+What's new in version 2.2.6-> Removed bugs

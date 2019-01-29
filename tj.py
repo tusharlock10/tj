@@ -7,7 +7,7 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.fernet import Fernet
 import msvcrt as m
 
-__version__="2.2.5"
+__version__="2.2.6"
 
 __doc__='''
 
@@ -693,10 +693,10 @@ def make_hash(string):
     to hash.
 
     This function returns the hash of a string, using SHA256
-    algorithm'''
+    algorithm. Returns the hash as a binary string.'''
     
     hash_object = hashlib.sha256(string.encode())
     digest = hash_object.digest()
-    return digest.decode()
+    return digest
 
 
