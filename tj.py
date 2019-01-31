@@ -1,5 +1,5 @@
 import os, sys, time, shutil, random, base64, hashlib
-import os.path
+import os.path, zipfile
 import pyAesCrypt as crypt
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
@@ -7,7 +7,7 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.fernet import Fernet
 import msvcrt as m
 
-__version__="2.2.6"
+__version__="2.3.0"
 
 __doc__='''
 
@@ -23,7 +23,7 @@ would do by writing long lines of code
 
 Version: %s
 
-Updated on: 29rd January 9:05 PM
+Updated on: 31st January 6:35 PM
 ''' % ( __version__)
 
 
@@ -523,8 +523,10 @@ def encryptFile(InputFile, OutputFile=None, password=None, delete=False):
     except:pass
     try:os.remove(OutputFile)
     except:pass
+    bufferSize=32*1024
     if password==None:
-        password=getRandomString([str(i) for i in range()])
+        L=[str(i) for i in range(10)]+[str(i) for i in range(65, 91)]
+        password=getRandomString(L=L, number=random.randint(8,20))
 
     crypt.encryptFile(InputFile, tempFile, password, bufferSize)
 
@@ -568,6 +570,7 @@ def decryptFile(InputFile, password, OutputFile=None, delete=False):
     except:pass
     try:os.remove(OutputFile)
     except:pass
+    bufferSize=32*1024
 
     crypt.decryptFile(InputFile, tempFile, password, bufferSize)
 
@@ -699,4 +702,47 @@ def make_hash(string):
     digest = hash_object.digest()
     return digest
 
+
+def compress(InputFile, OutputFile=None):
+    ''''Args->
+
+    InputFile-> The path of the file you need to compress
+
+    OutputFile-> The path of the file which you will get after compressing.
+    It is an optional argument and is set to None by default. When it is None,
+    the OutputFile will have the same same as InputFile, but with .zip extension.
+
+    This function compress a file in .zip format
+
+    eg.
+    InputFile is "Datafile.txt"
+    OutputFile is None. Then the compressed file created will be Datafile.zip
+
+    InputFile is "My Presentation.ppt"
+    OutputFile is "Compressed.rar". Then the compressed file created will be Compressedfile.rar
+    '''
+    if OutputFile==None:
+        file_name=os.path.splitext(InputFile)[0]
+        OutputFile=file_name+'.zip'
+
+    zipF = zipfile.ZipFile(OutputFile, 'w')
+    zipF.write(InputFile, compress_type=zipfile.ZIP_DEFLATED)
+    zipF.close()
+
+def extract(InputFile):
+    ''''Args->
+
+    InputFile-> The path of the file .zip you need to exctact
+
+    This function extracts a zip file.
+    '''
+    tar=os.getcwd()
+    zipF = zipfile.ZipFile(InputFile)
+    zipF.extractall(tar)
+    zipF.close()
+
+
+
+    
+    
 

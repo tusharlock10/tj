@@ -9,5 +9,5 @@ setup(
     author="Tushar Jain",
     author_email="tusharlock10@gmail.com",
     py_modules=['tj'],
-    install_requires=['autopy']
+    install_requires=['autopy', 'pyAesCrypt','cryptography']
 )
