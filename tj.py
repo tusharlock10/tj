@@ -5,9 +5,9 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.fernet import Fernet
-import msvcrt as m
+import getpass
 
-__version__="2.3.0"
+__version__="2.4.1"
 
 __doc__='''
 
@@ -23,7 +23,7 @@ would do by writing long lines of code
 
 Version: %s
 
-Updated on: 31st January 6:35 PM
+Updated on: 10th Feburary 08:10 PM
 ''' % ( __version__)
 
 
@@ -486,6 +486,11 @@ def getRandomString(L=None,number=None):
     s=''
     if L==None:
         L=[chr(i) for i in range(33,127)]
+        
+    if number==None:
+        number=random.randint(8,20)
+        
+        
     for j in range(number):
         temp=str(random.choice(L))
         s+=temp
@@ -644,50 +649,19 @@ def decrypt(e_message, password):
     return d_message.decode()
 
 
-def pinput(prompt='',symbol='*'):
+def pinput(prompt='Password: '):
     '''Args->
 
     prompt-> Like the input() method, pinput also
     accepts a prompt string, which will be displayed
     to the user. It is an optional argument.
 
-    symbol-> This the symbol which will be shown instead
-    of characters during typing of password. It is set to
-    * by default. You can change it to # or $ or x or even
-    an empty string.
-
     pinput() (pssword-input) is a function, which makes entering
-    sensitive data secure, by hiding the characters. This function
-    clears the screen, so keep that in mind. And copy pasting of 
-    passwords does not work here.
+    sensitive data secure, by hiding the characters.
 '''
-    os.system('cls')
-    print(prompt, end='')
-    s = ''
-    sys.stdout.flush()
-    while True:
-
-        c = m.getch()
-        if ord(c) == 8:
-            os.system('cls')
-            print(prompt, end='')
-            s = s[:-1]
-            print(symbol*len(s), end='')
-            sys.stdout.flush()
-            continue
-        
-        c = c.decode()
-        sys.stdout.flush()
-        if c == '\r':
-            break
-        s += c
-        print('*', end='')
-        sys.stdout.flush()
-    os.system('cls')
-    print(prompt+(symbol*len(s)))
-    
-    return s
-
+    x=getpass.getpass(prompt)
+    print(x)
+    return x
 
 def make_hash(string):
     '''Args->

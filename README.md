@@ -46,3 +46,5 @@ What's new in version 2.2.1-> Added make_hash(...) and pinput(...) functions
 What's new in version 2.2.8-> Removed bugs
 
 What's new in version 2.3.0-> Added compress(...) and extract(...) functions
+
+What's new in version 2.4.1-> Completely changed the pinput(...) functions due to some bugs in it.
