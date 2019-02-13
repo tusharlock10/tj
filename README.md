@@ -1,6 +1,8 @@
 A simple short module containing useful functions and powerful functions.
 A module that you will love to use
 
+INSTALL tj MODULE USING 'pip install tj'
+
 
 What's new in version 1.6.1-> Corrected some color values
 
