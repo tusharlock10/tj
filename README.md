@@ -48,3 +48,11 @@ What's new in version 2.2.8-> Removed bugs
 What's new in version 2.3.0-> Added compress(...) and extract(...) functions
 
 What's new in version 2.4.1-> Completely changed the pinput(...) functions due to some bugs in it.
+
+What's new in version 2.5.0-> Added tj module branding in encrypted files
+
+What's new in version 2.5.1-> Removed some bugs
+
+What's new in version 2.5.2-> Removed tj module branding from encrypted module as it didn't worked out
+
+What's new in version 2.5.3-> Removed some bugs

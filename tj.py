@@ -7,7 +7,7 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.fernet import Fernet
 import getpass
 
-__version__="2.4.1"
+__version__="2.5.3"
 
 __doc__='''
 
@@ -23,7 +23,7 @@ would do by writing long lines of code
 
 Version: %s
 
-Updated on: 10th Feburary 08:10 PM
+Updated on: 13th February 04:35 PM
 ''' % ( __version__)
 
 
