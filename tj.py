@@ -5,9 +5,11 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.fernet import Fernet
+from email import encoders
+from email.header import Header
 import getpass
 
-__version__="2.5.3"
+__version__="2.6.0"
 
 __doc__='''
 
@@ -258,7 +260,9 @@ def email(email_id, password, recievers, body, subject="Email sent by TJ module 
         datatemp = f.read()
 
         part.set_payload(datatemp)
+        encoders.encode_base64(part)
         filename = get_filename(item)
+        part.add_header('Content-Disposition', 'attachment',filename=(Header(filename, 'utf-8').encode())) 
         part.add_header('Content-Disposition',
                         'attachment; filename="%s"' % filename)
         msg.attach(part)

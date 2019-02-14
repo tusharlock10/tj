@@ -56,3 +56,6 @@ What's new in version 2.5.1-> Removed some bugs
 What's new in version 2.5.2-> Removed tj module branding from encrypted module as it didn't worked out
 
 What's new in version 2.5.3-> Removed some bugs
+
+What's new in version 2.6.0-> Removed some bugs, now you can send binary files and text files, both as an 
+email attachment.
