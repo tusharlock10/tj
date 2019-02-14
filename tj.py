@@ -1,6 +1,11 @@
 import os, sys, time, shutil, random, base64, hashlib
 import os.path, zipfile
-import pyAesCrypt as crypt
+try:import pyAesCrypt as crypt
+except:
+    print('WARNING: pyAesCrypt module not found')
+    print('Without this module, encryption and decryption functions')
+    print('\twill not work.')
+    print("Use 'pip install pyAesCrypt' to install it.")
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
@@ -9,7 +14,7 @@ from email import encoders
 from email.header import Header
 import getpass
 
-__version__="2.6.0"
+__version__="2.6.1"
 
 __doc__='''
 
@@ -25,7 +30,7 @@ would do by writing long lines of code
 
 Version: %s
 
-Updated on: 13th February 04:35 PM
+Updated on: 14th February 07:35 PM
 ''' % ( __version__)
 
 
@@ -664,7 +669,6 @@ def pinput(prompt='Password: '):
     sensitive data secure, by hiding the characters.
 '''
     x=getpass.getpass(prompt)
-    print(x)
     return x
 
 def make_hash(string):

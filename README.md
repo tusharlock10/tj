@@ -67,3 +67,6 @@ What's new in version 2.5.3-> Removed some bugs
 
 What's new in version 2.6.0-> Removed some bugs, now you can send binary files and text files, both as an 
 email attachment.
+
+What's new in version 2.6.1-> Removed print statement from pinput(...) function. I know, it sounds funny as
+pinput(...) is designed not to show passwords! Added try-except in import pyAecCrypt statement.
