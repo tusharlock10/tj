@@ -14,12 +14,12 @@ from email import encoders
 from email.header import Header
 import getpass
 
-__version__="2.6.1"
+__version__="2.6.2"
 
 __doc__='''
 
  _______ ________
-|__   __|___   __| PRODUCTIONS 2018
+|__   __|___   __| PRODUCTIONS 2019
    | |      | |
    | |    __| |
    |_|    \___/ 
@@ -30,7 +30,7 @@ would do by writing long lines of code
 
 Version: %s
 
-Updated on: 14th February 07:35 PM
+Updated on: 14th February 07:40 PM
 ''' % ( __version__)
 
 
@@ -723,7 +723,15 @@ def extract(InputFile):
     zipF.extractall(tar)
     zipF.close()
 
-
+if __name__=='__main__':
+    print(__doc__,'\n\n\n')
+    try:
+        f=open('README.md')
+        data=f.read()
+        f.close()
+        print(data)
+    except:pass
+    input('\n\nEnter to continue...')
 
     
     
