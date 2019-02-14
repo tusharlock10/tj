@@ -70,3 +70,5 @@ email attachment.
 
 What's new in version 2.6.1-> Removed print statement from pinput(...) function. I know, it sounds funny as
 pinput(...) is designed not to show passwords! Added try-except in import pyAecCrypt statement.
+
+What's new in version 2.6.2-> Updated docs
