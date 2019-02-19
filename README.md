@@ -1,74 +1,90 @@
-A simple short module containing useful functions and powerful functions.
+# Project Title <h1>
 
-A module that you will love to use
-
-
-
-INSTALL tj MODULE USING 'pip install tj'
+A simple but powerful module that will provide you many useful methods.
 
 
 
+## Getting Started <h2>
 
-What's new in version 1.6.1-> Corrected some color values
+This module can provide you with powerful functions such as email(...), color_text(...),
+take_src(...), convert_currency(...), compress(...), and many more functions, which otherwise,
+you would be writing on your own, wasting time as that code had already been
+written and is just an **_import_** statement away...
 
-What's new in version 1.7.1-> Added transform_color function and updated documentation.
+**tj module helps implement
+DRY** _(**D**on't **R**epeat **Y**ourself)_
+**and KISS** _(**K**eep **I**t **S**imple **S**tupid)_
 
-What's new in version 1.7.2-> Fixed shutil module import error
 
-What's new in version 1.8.0-> Changed remove_dir(...) function to delete(...).
+### Prerequisites<h3>
 
-What's new in version 1.8.1-> Fixed is_Folder(...) function, and added is_File(path) function.
+These are some of the modules required by tj module-
 
-What's new in version 1.8.2-> Fixed get_foldername(...) and get_filename(...).
+* *cryptography*
+* *autopy*
+* *colorama*
+* *pyAesCrypt*
+* *forex-python*
 
-What's new in version 1.9.0-> Fixed get_startup_path(...) function
 
-What's new in version 1.9.2-> Removed some unecessary print staements
+### Installing<h2>
 
-What's new in version 1.9.2-> Fixed some bugs
+You can install tj module by using pip.
 
-What's new in version 1.9.3-> Added convert_currency function, which works on forex_python module
+```
+pip install tj
+```
+And the latest version of the tj module will be installed.
+To check if it is installed correctly, try
+```
+>>>import tj
+>>>tj.__version__
+'2.7.0'
+>>>
+```
 
-What's new in version 1.9.4-> Fixed some bugs
 
-What's new in version 1.9.5-> Fixed some bugs
+## Exernal modules used<h3>
 
-What's new in version 2.0.0-> Squashed major bugs, which stopped any python script from being 
-converted to .exe file in pyinstaller, py2exe and cx_Freeze.
+* *[cryptograhy](https://pypi.org/project/cryptography/)* - Used for encryption and decryption methods
+* *[pyAesCrypt](https://pypi.org/project/pyAesCrypt/)* - Used for file encryption and decryption
+* *[colorama](https://pypi.org/project/colorama/)* - Used to enable terminal colors
+* *[autopy](https://pypi.org/project/autopy/)* - Used to capture screenshots
+* *[forex-python](https://pypi.org/project/forex-python/)* - Used to fetch currency exchange rates
 
-What's new in version 2.1.0-> Added functions encrypt(...) and decrypt(...) for easy AES-256 enc/decryption.
-Also, the documentation of some functions have been changed, including email(...) and delete(...)
 
-What's new in version 2.1.1-> Added new functions encrypt(...) and decrypt(...) and changed the
-name of the older functions from encrypt(...) and decrypt(...) to encryptFile(...) and decryptFile(...).
-New enc/decrypt(...) functions are used only for strings. enc/decryptFile(...) functions are
-used only for Files.
+## Versions<h3>
 
-What's new in version 2.1.3-> Added HTML email functationality in email(...) funtion.
+You can view **[Versions.md](Versions.md)** to see the version history of this project
+in a glimpse.
 
-What's new in version 2.1.4-> Fixed HTML email functionality bug where pictures won't show 
-in the email, but the HTML content does show up.
 
-What's new in version 2.2.1-> Added make_hash(...) and pinput(...) functions
+## Contributing<h3>
 
-What's new in version 2.2.8-> Removed bugs
+Please feel free to contribute and give ideas for this project. You can add any
+functions, modules, methods, which you think, can save time or if they provide
+solution to a difficult problem.
 
-What's new in version 2.3.0-> Added compress(...) and extract(...) functions
 
-What's new in version 2.4.1-> Completely changed the pinput(...) functions due to some bugs in it.
+## License<h4>
 
-What's new in version 2.5.0-> Added tj module branding in encrypted files
+This project is licensed under the *MIT License* - see the **[LICENSE.md](LICENSE.md)** file for details
 
-What's new in version 2.5.1-> Removed some bugs
 
-What's new in version 2.5.2-> Removed tj module branding from encrypted module as it didn't worked out
+## What's new in this version<h2>
 
-What's new in version 2.5.3-> Removed some bugs
+This version: 2.7.0 updated on 2:40 AM 20th Feburary 2019 (Yes, its AM, not PM!!)
 
-What's new in version 2.6.0-> Removed some bugs, now you can send binary files and text files, both as an 
-email attachment.
+* Added _color_text(...)_ function to print text in command-line, in different colors.
+* Changed Readme.md file from a simple text file, to a correctly formated .MD file.
+* Made **[Versions.md](Versions.md)** file to store version history.
+* Resolved minor bugs.
+* Added _get_folder_contents(...)_ and _get_folders_in_folder(...)_ functions.
 
-What's new in version 2.6.1-> Removed print statement from pinput(...) function. I know, it sounds funny as
-pinput(...) is designed not to show passwords! Added try-except in import pyAecCrypt statement.
 
-What's new in version 2.6.2-> Updated docs
+## Authors<h3>
+
+* **Tushar Jain** - *Repository Maintainer* - [tusharlock10](https://github.com/tusharlock10)
+
+
+
