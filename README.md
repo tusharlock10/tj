@@ -1,10 +1,10 @@
-# Project Title <h1>
+# Project Title
 
 A simple but powerful module that will provide you many useful methods.<br/>
 
 
 
-## **Getting Started** <h2>
+## **Getting Started** <h3>
 This module can provide you with powerful functions such as email(...), color_text(...),
 take_src(...), convert_currency(...), compress(...), and many more functions, which otherwise,
 you would be writing on your own, wasting time as that code had already been
@@ -66,7 +66,7 @@ solution to a difficult problem.<br/>
 This project is licensed under the *MIT License* - see the **[LICENSE.md](LICENSE.md)** file for details<br/>
 
 
-## **What's new in this version**<h2>
+## **What's new in this version**<h3>
 This version: 2.7.0 updated on 2:40 AM 20th Feburary 2019 (Yes, its AM, not PM!!)
 
 * Added _color_text(...)_ function to print text in command-line, in different colors.
