@@ -22,8 +22,7 @@ __doc__ = '''
    |_|   \\___/
 
 
-A module that can be used to to multiple common tasks that otherwise you
-would do by writing long lines of code
+A simple but powerful module that will provide you many useful methods.
 
 Version: %s
 
