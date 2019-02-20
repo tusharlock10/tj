@@ -11,7 +11,7 @@ from email import encoders
 from email.header import Header
 import getpass
 
-__version__ = "2.7.7"
+__version__ = "2.7.8"
 __author__ = "Tushar Jain"
 
 __doc__ = '''
@@ -27,7 +27,7 @@ A simple but powerful module that will provide you many useful methods.
 
 Version: %s
 
-Updated on: 20th February 06:20 PM
+Updated on: 20th February 08:30 PM
 ''' % ( __version__)
 
 
@@ -119,11 +119,11 @@ def color_text(text, text_color='WHITE', background_color='BLACK',
     bc_int = term_background_colors[
         background_color.upper()]  # int for background color
 
-    if not bold:
+    if bold:
         L.append(styles['BOLD'])
-    if not italic:
+    if italic:
         L.append(styles['ITALIC'])
-    if not underline:
+    if underline:
         L.append(styles['UNDERLINE'])
 
     L += [tc_int, bc_int]

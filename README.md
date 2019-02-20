@@ -38,7 +38,7 @@ To check if it is installed correctly, try
 ```
 >>>import tj
 >>>tj.__version__
-'2.7.7'
+'2.7.8'
 >>>
 ```
 <br/>
@@ -78,13 +78,14 @@ This project is licensed under the *MIT License* - see the **[LICENSE.md](LICENS
 * Added _get_folder_contents(...)_ and _get_folders_in_folder(...)_ functions.
 <br/>
 
-**This version**: 2.7.7 updated on 06:20 PM 20th February 2019
+**This version**: 2.7.8 updated on 08:30 PM 20th February 2019
 
 * Added __author__ attribute
 * Removed minor bugs
 * Added progress information support in get_files_in_folder(...),
 	get_folders_in_folder(...) and get_folder_contents(...) functions.
 * Made tj module compatible with Python 2.x
+* Removed minor bugs
 
 
 ## **Authors**<h3>
