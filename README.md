@@ -23,6 +23,7 @@ These are some of the modules required by tj module-
 * *colorama*
 * *pyAesCrypt*
 * *forex-python*
+* *tqdm*
 <br/>
 
 
@@ -37,7 +38,7 @@ To check if it is installed correctly, try
 ```
 >>>import tj
 >>>tj.__version__
-'2.7.0'
+'2.7.6'
 >>>
 ```
 <br/>
@@ -49,6 +50,7 @@ To check if it is installed correctly, try
 * *[colorama](https://pypi.org/project/colorama/)* - Used to enable terminal colors
 * *[autopy](https://pypi.org/project/autopy/)* - Used to capture screenshots
 * *[forex-python](https://pypi.org/project/forex-python/)* - Used to fetch currency exchange rates
+* *[tqdm](https://pypi.org/project/tqdm/)* - Used for progress bar and progress information support
 <br/>
 
 ## **Versions**<h3>
@@ -67,7 +69,7 @@ This project is licensed under the *MIT License* - see the **[LICENSE.md](LICENS
 
 
 ## **What's new in this version**<h3>
-This version: 2.7.0 updated on 2:40 AM 20th Feburary 2019 (Yes, its AM, not PM!!)
+**Last Major Release**: 2.7.0 updated on 2:40 AM 20th February 2019 (Yes, its AM, not PM!!)
 
 * Added _color_text(...)_ function to print text in command-line, in different colors.
 * Changed Readme.md file from a simple text file, to a correctly formated .MD file.
@@ -75,6 +77,14 @@ This version: 2.7.0 updated on 2:40 AM 20th Feburary 2019 (Yes, its AM, not PM!!
 * Resolved minor bugs.
 * Added _get_folder_contents(...)_ and _get_folders_in_folder(...)_ functions.
 <br/>
+
+**This version**: 2.7.6 updated on 05:50 PM 20th February 2019
+
+* Added __author__ attribute
+* Removed minor bugs
+* Added progress information support in get_files_in_folder(...),
+	get_folders_in_folder(...) and get_folder_contents(...) functions.
+* Made tj module compatible with Python 2.x
 
 
 ## **Authors**<h3>

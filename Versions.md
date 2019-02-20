@@ -65,3 +65,9 @@ In version 2.6.2-> Updated docs
 In version 2.7.0-> Added functions color_text(...), get_folder_contents(...), get_folders_in_folder(...).
 	Also updated README.md as per the .MD format. Made Versions.md and removed some bugs as well.
 
+In version 2.7.1-> Removed minor bugs as well as added __author__.
+
+In version 2.7.4-> Added progress bar support in get_files_in_folder(...), get_folder_contents(...),
+	get_folders_in_folder(...) functions.
+
+In version 2.7.6-> Added support for Python 2.x by changing the string formatting.

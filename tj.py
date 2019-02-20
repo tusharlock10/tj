@@ -11,7 +11,8 @@ from email import encoders
 from email.header import Header
 import getpass
 
-__version__ = "2.7.0"
+__version__ = "2.7.6"
+__author__ = "Tushar Jain"
 
 __doc__ = '''
 
@@ -26,7 +27,7 @@ A simple but powerful module that will provide you many useful methods.
 
 Version: %s
 
-Updated on: 20th February 02:40 AM
+Updated on: 20th February 05:50 PM
 ''' % ( __version__)
 
 
@@ -239,32 +240,106 @@ def get_foldername(path):
     return x
 
 
-def get_files_in_folder(path):
-    """Takes the full path of a folder as argument
-Gives the full path of all the files that folder and its subfolders, in a list"""
+def get_files_in_folder(path, show_progress=False):
+    """Args->
+
+    path-> The path of the directory.
+
+    show_progress-> It is an optional argument set to False by default.
+        When show_progress is True, the progress will be displayed.
+
+    This function returns the full path of all the files and sub-files present
+    in the directory."""
+
+    is_present = True
+    if show_progress != False:
+        try:
+            from tqdm import tqdm
+        except:
+            is_present = False
+
+        if not is_present:
+            raise ModuleNotFoundError(
+                """tqdm module not found.
+    Install tqdm module using 'pip install tqdm'
+
+    * tqdm module is required to show progress""")
+        generator = tqdm(os.walk(os.path.abspath(path)))
+    else:
+        generator = os.walk(os.path.abspath(path))
+
     L = []
 
-    for root, dirs, files in os.walk(os.path.abspath(path)):
+    for root, dirs, files in generator:
         for file in files:
             L += [os.path.join(root, file)]
     return L
 
 
 def get_folders_in_folder(path):
-    """Takes the full path of a folder as argument
-Gives the full path of all the folders that folder and its subfolders, in a list"""
-    return [i for i, j, k in os.walk(os.path.abspath(path))]
+    """Args->
+
+    path-> The path of the directory.
+
+    show_progress-> It is an optional argument set to False by default.
+        When show_progress is True, the progress will be displayed.
+
+    This function returns the full path of all the folders that folder and its
+    subfolders, in a list"""
+
+    is_present = True
+    if show_progress != False:
+        try:
+            from tqdm import tqdm
+        except:
+            is_present = False
+
+        if not is_present:
+            raise ModuleNotFoundError(
+                """tqdm module not found.
+    Install tqdm module using 'pip install tqdm'
+
+    * tqdm module is required to show progress""")
+        generator = tqdm(os.walk(os.path.abspath(path)))
+    else:
+        generator = os.walk(os.path.abspath(path))
+
+    return [i for i, j, k in generator]
 
 
 def get_folder_contents(path):
-    """Takes the full path of a folder as argument
-Gives the full path of all the files and folders that folder and its subfolders,
-in a list of lists.
-Returned list will look like [ [...Folders...] , [...Files...] ]"""
+    """Args->
+
+    path-> The path of the directory.
+
+    show_progress-> It is an optional argument set to False by default.
+        When show_progress is True, the progress will be displayed.
+
+    This function returns the full path of all the files and folders that folder
+    and its subfolders, in a list of lists.
+    Returned list will look like [ [...Folders...] , [...Files...] ]"""
+
+    is_present = True
+    if show_progress != False:
+        try:
+            from tqdm import tqdm
+        except:
+            is_present = False
+
+        if not is_present:
+            raise ModuleNotFoundError(
+                """tqdm module not found.
+    Install tqdm module using 'pip install tqdm'
+
+    * tqdm module is required to show progress""")
+        generator = tqdm(os.walk(os.path.abspath(path)))
+    else:
+        generator = os.walk(os.path.abspath(path))
+
     Files = []
     Folders = []
 
-    for root, dirs, files in os.walk(os.path.abspath(path)):
+    for root, dirs, files in generator:
         Folders += [root]
         for file in files:
             Files += [os.path.join(root, file)]
@@ -378,7 +453,8 @@ def email(email_id, password, recievers, body, subject="Email sent by TJ module 
         data = f.read()
         f.close()
         msgRes = MIMEImage(data)
-        msgRes.add_header('Content-ID', f'<res{i}>')
+        s_temp = "<res%s>" % i
+        msgRes.add_header('Content-ID', s_temp)
         msg.attach(msgRes)
 
     # ATTACH FILES
@@ -469,7 +545,7 @@ def convert_bytes(size):
     s2 = s[1]
     s2 = s2[:2]
     s = s1 + "." + s2
-    return "{s} {x}".format(s=s, x=L[i - 1])
+    return "%s %s" % (s, L[i - 1])
 
 
 def file_size(file_path, Flag=False):
@@ -493,10 +569,16 @@ def get_last_modified(path, flag=False):
     Arguments:\n path-> the path of the file
     flag-> Its a bool value, when False, the time is returned in
     Epoch seconds, if flag is True, time is returned in proper format.'''
+
+    is_file = True
     try:
         a = os.stat(path)[-2]
-    except:
-        raise "Path not found"
+    except FileNotFoundError:
+        is_file = False
+
+    if not is_file:
+        raise FileNotFoundError("Path not found")
+
     if flag == False:
         return a
     if flag == True:
@@ -633,14 +715,19 @@ def convert_currency(c1, c2, rate=None, flag=True):
         amt2 = round(amt2, 3)
 
         if flag:
-            print(f"{amt1} {type1} equals {amt2} {type2}")
+            s_temp = "%s %s equals %s %s" % (
+                amt1, type1, amt2, type2)
+            print(s_temp)
 
     else:
         amt2 = amt1 * rate
         amt2 = round(amt2, 3)
         if flag:
-            print(f"{amt1} {type1} equals {amt2} {type2}")
-    return f'{amt2} {type2}'
+            s_temp = "%s %s equals %s %s" % (amt1, type1, amt2, type2);
+            print(s_temp)
+
+    s_temp="%s %s" % (amt2, type2)
+    return s_temp
 
 
 def getRandomString(L=None, number=None):
