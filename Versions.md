@@ -71,3 +71,5 @@ In version 2.7.4-> Added progress bar support in get_files_in_folder(...), get_f
 	get_folders_in_folder(...) functions.
 
 In version 2.7.6-> Added support for Python 2.x by changing the string formatting.
+
+In version 2.7.7-> Squashed some bugs.

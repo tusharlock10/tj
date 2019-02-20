@@ -11,7 +11,7 @@ from email import encoders
 from email.header import Header
 import getpass
 
-__version__ = "2.7.6"
+__version__ = "2.7.7"
 __author__ = "Tushar Jain"
 
 __doc__ = '''
@@ -27,7 +27,7 @@ A simple but powerful module that will provide you many useful methods.
 
 Version: %s
 
-Updated on: 20th February 05:50 PM
+Updated on: 20th February 06:20 PM
 ''' % ( __version__)
 
 
@@ -276,7 +276,7 @@ def get_files_in_folder(path, show_progress=False):
     return L
 
 
-def get_folders_in_folder(path):
+def get_folders_in_folder(path, show_progress=False):
     """Args->
 
     path-> The path of the directory.
@@ -307,7 +307,7 @@ def get_folders_in_folder(path):
     return [i for i, j, k in generator]
 
 
-def get_folder_contents(path):
+def get_folder_contents(path, show_progress=False):
     """Args->
 
     path-> The path of the directory.
@@ -351,7 +351,7 @@ def factorial(num):
 Gives factorial of that argument"""
     if num < 0:
         raise "Number is less than 0"
-    if type(num) != type(1):
+    if not isinstance(num, type(1)):
         raise "Number is not an integer"
     r = 1
     for i in range(1, num + 1):
@@ -723,10 +723,11 @@ def convert_currency(c1, c2, rate=None, flag=True):
         amt2 = amt1 * rate
         amt2 = round(amt2, 3)
         if flag:
-            s_temp = "%s %s equals %s %s" % (amt1, type1, amt2, type2);
+            s_temp = "%s %s equals %s %s" % (
+                amt1, type1, amt2, type2)
             print(s_temp)
 
-    s_temp="%s %s" % (amt2, type2)
+    s_temp = "%s %s" % (amt2, type2)
     return s_temp
 
 

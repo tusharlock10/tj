@@ -38,7 +38,7 @@ To check if it is installed correctly, try
 ```
 >>>import tj
 >>>tj.__version__
-'2.7.6'
+'2.7.7'
 >>>
 ```
 <br/>
@@ -78,7 +78,7 @@ This project is licensed under the *MIT License* - see the **[LICENSE.md](LICENS
 * Added _get_folder_contents(...)_ and _get_folders_in_folder(...)_ functions.
 <br/>
 
-**This version**: 2.7.6 updated on 05:50 PM 20th February 2019
+**This version**: 2.7.7 updated on 06:20 PM 20th February 2019
 
 * Added __author__ attribute
 * Removed minor bugs
