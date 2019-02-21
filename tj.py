@@ -11,7 +11,7 @@ from email import encoders
 from email.header import Header
 import getpass
 
-__version__ = "2.7.8"
+__version__ = "2.7.10"
 __author__ = "Tushar Jain"
 
 __doc__ = '''
@@ -27,7 +27,7 @@ A simple but powerful module that will provide you many useful methods.
 
 Version: %s
 
-Updated on: 20th February 08:30 PM
+Updated on: 21st February 06:55 PM
 ''' % ( __version__)
 
 
@@ -912,6 +912,8 @@ def __keyGenerator(p):
 
     try:
         from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+        from cryptography.hazmat.primitives import hashes
+        from cryptography.hazmat.backends import default_backend
     except:
         is_present = False
 
@@ -947,9 +949,6 @@ def encrypt(message, password):
     This function is used to easily encrypt strings, using AES encryption.'''
 
     key = __keyGenerator(password)
-
-    from cryptography.hazmat.backends import default_backend
-    from cryptography.hazmat.primitives import hashes
     from cryptography.fernet import Fernet
 
     cipher = Fernet(key)
@@ -968,9 +967,6 @@ def decrypt(e_message, password):
     This function is used to easily decrypt strings, which were encrypted by
     the encrypt(...) function of this module.'''
     key = __keyGenerator(password)
-
-    from cryptography.hazmat.backends import default_backend
-    from cryptography.hazmat.primitives import hashes
     from cryptography.fernet import Fernet
 
     cipher = Fernet(key)
