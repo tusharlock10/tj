@@ -79,3 +79,5 @@ pinput(...) is designed not to show passwords! Added try-except in import pyAecC
 **In version** 2.7.9-> Fixed a major bug in encrypt(...) and decrypt(...) functions. 
 
 **In version** 2.7.10-> Removed some more bugs.
+
+**In version** 2.7.12-> Removed bug in color_text(...)

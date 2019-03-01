@@ -11,7 +11,7 @@ from email import encoders
 from email.header import Header
 import getpass
 
-__version__ = "2.7.10"
+__version__ = "2.7.12"
 __author__ = "Tushar Jain"
 
 __doc__ = '''
@@ -27,7 +27,7 @@ A simple but powerful module that will provide you many useful methods.
 
 Version: %s
 
-Updated on: 21st February 06:55 PM
+Updated on: 1st March 03:55 PM
 ''' % ( __version__)
 
 
@@ -47,16 +47,16 @@ colors = {"BLACK": [0, 0, 0], "WHITE": [255, 255, 255], "GOLD": [255, 223, 0], "
 color_names = list(colors.keys())
 
 
-term_text_colors = {'BLACK': 30, 'RED': 31, 'GREEN': '32', 'YELLOW': 33, 'BLUE': 34,
-                    'PURPLE': 35, 'OLIVE': 36, 'WHITE': 37}
+term_text_colors = {'BLACK': 30, 'RED': 31, 'GREEN': 32, 'YELLOW': 33, 'BLUE': 34,
+                    'PURPLE': 35, 'OLIVE': 36, 'WHITE': 37, '':''}
 
 term_background_colors = {'BLACK': 40, 'RED': 41, 'GREEN': 42, 'YELLOW': 43, 'BLUE': 44,
-                          'PURPLE': 45, 'OLIVE': 46, 'WHITE': 47}
+                          'PURPLE': 45, 'OLIVE': 46, 'WHITE': 47, '':''}
 
 styles = {'NORMAL': 0, 'ITALIC': 3, 'BOLD': 1, 'UNDERLINE': 4}
 
 
-def color_text(text, text_color='WHITE', background_color='BLACK',
+def color_text(text, text_color='', background_color='',
                bold=False, italic=False, underline=False):
     """Args->
 
