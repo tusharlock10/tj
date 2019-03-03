@@ -38,7 +38,7 @@ To check if it is installed correctly, try
 ```
 >>>import tj
 >>>tj.__version__
-'2.7.12'
+'2.8.1'
 >>>
 ```
 <br/>
@@ -69,30 +69,19 @@ This project is licensed under the *MIT License* - see the **[LICENSE.md](LICENS
 
 
 ## **What's new in this version**<h3>
-**Last Major Release**: 2.7.0 updated on 2:40 AM 20th February 2019 (Yes, its AM, not PM!!)
+**Last Major Release**: 2.8.0 updated on 11:35 PM 3rd March 2019
 
-* Added _color_text(...)_ function to print text in command-line, in different colors.
-* Changed Readme.md file from a simple text file, to a correctly formated .MD file.
-* Made **[Versions.md](Versions.md)** file to store version history.
-* Resolved minor bugs.
-* Added _get_folder_contents(...)_ and _get_folders_in_folder(...)_ functions.
+* Updated some docuentation
+* Introduced instant_input(...) function
 <br/>
 
-**This version**: 2.7.12 updated on 03:55 PM 1st March 2019
+**This version**: 2.8.1 updated on 11:45 PM 3rd March 2019
 
-* Added __author__ attribute
-* Removed minor bugs
-* Added progress information support in get_files_in_folder(...),
-	get_folders_in_folder(...) and get_folder_contents(...) functions.
-* Made tj module compatible with Python 2.x
-* Removed minor bugs
-* Removed major bug in encrypt(...) and decrypt(...) functions.
-* Removed some more bugs.
+* Updated some docuentation
+* Introduced instant_input(...) function
+* Fixed bugs
 
 
 ## **Authors**<h3>
 
 * **Tushar Jain** - *Repository Maintainer* - [tusharlock10](https://github.com/tusharlock10)
-
-
-

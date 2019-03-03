@@ -10,8 +10,14 @@ import zipfile
 from email import encoders
 from email.header import Header
 import getpass
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email.mime.image import MIMEImage
+import msvcrt
 
-__version__ = "2.7.12"
+__version__ = "2.8.1"
 __author__ = "Tushar Jain"
 
 __doc__ = '''
@@ -27,7 +33,7 @@ A simple but powerful module that will provide you many useful methods.
 
 Version: %s
 
-Updated on: 1st March 03:55 PM
+Updated on: 3rd March 11:45 PM
 ''' % ( __version__)
 
 
@@ -422,11 +428,6 @@ def email(email_id, password, recievers, body, subject="Email sent by TJ module 
     email account to allow 3rd party apps to send or receive emails, or else
     you will not be able to send emails using that email id.
     """
-    import smtplib
-    from email.mime.multipart import MIMEMultipart
-    from email.mime.text import MIMEText
-    from email.mime.base import MIMEBase
-    from email.mime.image import MIMEImage
 
     uname = email_id
     pword = password
@@ -535,6 +536,16 @@ eg:
 
 
 def convert_bytes(size):
+    '''Takes bytes as input
+    Converts those bytes into KB, MB, etc.
+    And returns the size as a string.
+
+    eg:
+        >>>tj.convert_bytes(18244)
+        '17.81 KB'
+        >>>tj.convert_bytes(1024)
+        '1.0 KB'
+    '''
     L = ["Bytes", "KB", "MB", "GB", "TB"]
     for i in range(len(L)):
         if size // (1024 ** i) == 0:
@@ -601,11 +612,11 @@ def passed_time(flag=True):
     print(b.next()); time.sleep(5)
     print(a.next()); time.sleep(5)
     print(b.next())
->>>0.0
->>>5.0
->>>0.0
->>>5.0
->>>10.0
+    >>>0.0
+    >>>5.0
+    >>>0.0
+    >>>5.0
+    >>>10.0
     '''
     t = time.time()
     while True:
@@ -1050,3 +1061,20 @@ if __name__ == '__main__':
     except:
         pass
     input('\n\nEnter to continue...')
+
+
+def instant_input(string=None):
+    '''instant_input(string=None)
+    Like the built-in input() function, you
+    can give a string to display for taking input from the user.
+
+    Instant input, as the name suggests takes only one character from
+    the user, and does not wait for the user to hit enter. 
+
+    Returns the charcter enterd by the user.
+
+    *This function is useful in making command-line games.
+    '''
+    if string!=None:print(string)
+    x=str(msvcrt.getch().decode('utf-8'))
+    return x

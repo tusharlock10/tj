@@ -81,3 +81,9 @@ pinput(...) is designed not to show passwords! Added try-except in import pyAecC
 **In version** 2.7.10-> Removed some more bugs.
 
 **In version** 2.7.12-> Removed bug in color_text(...)
+
+**In version** 2.8.0-> Updated some documentaion and introduced instant_input(...) function.
+
+**In version** 2.8.1-> Fixed bugs
+
+
