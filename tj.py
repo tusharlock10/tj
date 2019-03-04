@@ -15,9 +15,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
-import msvcrt
 
-__version__ = "2.8.4"
+
+__version__ = "2.8.5"
 __author__ = "Tushar Jain"
 
 __doc__ = '''
@@ -33,7 +33,7 @@ A simple but powerful module that will provide you many useful methods.
 
 Version: %s
 
-Updated on: 4th March 4:00 PM
+Updated on: 4th March 08:25 PM
 ''' % ( __version__)
 
 
@@ -1051,17 +1051,6 @@ def extract(InputFile):
     zipF.extractall(tar)
     zipF.close()
 
-if __name__ == '__main__':
-    print(__doc__, '\n\n\n')
-    try:
-        f = open('README.md')
-        data = f.read()
-        f.close()
-        print(data)
-    except:
-        pass
-    input('\n\nEnter to continue...')
-
 
 def instant_input(string=None):
     '''instant_input(string=None)
@@ -1075,6 +1064,30 @@ def instant_input(string=None):
 
     *This function is useful in making command-line games.
     '''
+    is_present=True
+    try:
+        import msvcrt
+    except:
+        is_present=False
+    if not is_present:
+        raise ModuleNotFoundError(
+            """cryptography module not found.
+    Install cryptography module using 'pip install cryptography'
+
+    * cryptography is used for encrypting text.""")
+
     if string!=None:print(string)
     x=str(msvcrt.getch().decode('utf-8'))
     return x
+
+
+if __name__ == '__main__':
+    print(__doc__, '\n\n\n')
+    try:
+        f = open('README.md')
+        data = f.read()
+        f.close()
+        print(data)
+    except:
+        pass
+    input('\n\nEnter to continue...')
