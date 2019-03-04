@@ -15,10 +15,11 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
-import msvcrt
-import downloader
 
-__version__ = "2.8.4"
+
+
+
+__version__ = "2.8.5"
 __author__ = "Tushar Jain"
 
 __doc__ = '''
@@ -34,7 +35,7 @@ A simple but powerful module that will provide you many useful methods.
 
 Version: %s
 
-Updated on: 4th March 4:00 PM
+Updated on: 4th March 08:25 PM
 ''' % ( __version__)
 
 
@@ -1013,6 +1014,45 @@ def make_hash(string):
     return digest
 
 
+def compress(InputFile, OutputFile=None):
+    ''''Args->
+
+    InputFile-> The path of the file you need to compress
+
+    OutputFile-> The path of the file which you will get after compressing.
+    It is an optional argument and is set to None by default. When it is None,
+    the OutputFile will have the same same as InputFile, but with .zip extension.
+
+    This function compress a file in .zip format
+
+    eg.
+    InputFile is "Datafile.txt"
+    OutputFile is None. Then the compressed file created will be Datafile.zip
+
+    InputFile is "My Presentation.ppt"
+    OutputFile is "Compressed.rar". Then the compressed file created will be Compressed.rar
+    '''
+    if OutputFile is None:
+        file_name = os.path.splitext(InputFile)[0]
+        OutputFile = file_name + '.zip'
+
+    zipF = zipfile.ZipFile(OutputFile, 'w')
+    zipF.write(InputFile, compress_type=zipfile.ZIP_DEFLATED)
+    zipF.close()
+
+
+def extract(InputFile):
+    ''''Args->
+
+    InputFile-> The path of the file .zip you need to exctact
+
+    This function extracts a zip file.
+    '''
+    tar = os.getcwd()
+    zipF = zipfile.ZipFile(InputFile)
+    zipF.extractall(tar)
+    zipF.close()
+
 def instant_input(string=None):
     '''instant_input(string=None)
     Like the built-in input() function, you
@@ -1025,6 +1065,30 @@ def instant_input(string=None):
 
     *This function is useful in making command-line games.
     '''
+    is_present=True
+    try:
+        import msvcrt
+    except:
+        is_present=False
+    if not is_present:
+        raise ModuleNotFoundError(
+            """cryptography module not found.
+    Install cryptography module using 'pip install cryptography'
+
+    * cryptography is used for encrypting text.""")
+
     if string!=None:print(string)
     x=str(msvcrt.getch().decode('utf-8'))
     return x
+
+
+if __name__ == '__main__':
+    print(__doc__, '\n\n\n')
+    try:
+        f = open('README.md')
+        data = f.read()
+        f.close()
+        print(data)
+    except:
+        pass
+    input('\n\nEnter to continue...')
