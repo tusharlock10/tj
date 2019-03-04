@@ -17,7 +17,7 @@ from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
 import msvcrt
 
-__version__ = "2.8.1"
+__version__ = "2.8.4"
 __author__ = "Tushar Jain"
 
 __doc__ = '''
@@ -33,7 +33,7 @@ A simple but powerful module that will provide you many useful methods.
 
 Version: %s
 
-Updated on: 3rd March 11:45 PM
+Updated on: 4th March 4:00 PM
 ''' % ( __version__)
 
 
@@ -911,7 +911,7 @@ is it an empty folder or non-empty folder and then deletes it.
 
 An error will be raise if not able to delete the file/folder.'''
 
-    if os.path.isdir:
+    if os.path.isdir(path):
         shutil.rmtree(path)
     else:
         os.remove(path)

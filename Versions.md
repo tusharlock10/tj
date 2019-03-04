@@ -86,4 +86,6 @@ pinput(...) is designed not to show passwords! Added try-except in import pyAecC
 
 **In version** 2.8.1-> Fixed bugs
 
+**In version** 2.8.4-> Fixed bugs in delete(...) function
+
 
