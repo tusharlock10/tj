@@ -90,3 +90,5 @@ pinput(...) is designed not to show passwords! Added try-except in import pyAecC
 
 **In version** 2.8.5-> Fixed minor bugs
 
+**In version** 2.8.7-> Fixed bugs and added get_ip_address(...) function
+

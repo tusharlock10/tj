@@ -19,7 +19,7 @@ from email.mime.image import MIMEImage
 
 
 
-__version__ = "2.8.5"
+__version__ = "2.8.7"
 __author__ = "Tushar Jain"
 
 __doc__ = '''
@@ -35,7 +35,7 @@ A simple but powerful module that will provide you many useful methods.
 
 Version: %s
 
-Updated on: 4th March 08:25 PM
+Updated on: 5th March 11:15 PM
 ''' % ( __version__)
 
 
@@ -1053,6 +1053,47 @@ def extract(InputFile):
     zipF.extractall(tar)
     zipF.close()
 
+
+
+def __getinput_win(string):
+    '''This function is none of you business
+    For windows'''
+    is_present=True
+    try:
+        import msvcrt
+    except:
+        is_present=False
+    if not is_present:
+        raise ModuleNotFoundError(
+            """msvcrt module not found.
+    Install msvcrt module using 'pip install msvcrt'
+
+    * msvcrt is used for get-ch function for instant inputs.""")
+
+    x=str(msvcrt.getch().decode('utf-8'))
+    return x
+
+
+def __getinput_nix(string):
+    '''This function is none of you business
+    For Linux/Unix (*nix systems)'''
+    import termios
+    fd = sys.stdin.fileno()
+    old = termios.tcgetattr(fd)
+    new = termios.tcgetattr(fd)
+    new[3] = new[3] & ~TERMIOS.ICANON & ~TERMIOS.ECHO
+    new[6][TERMIOS.VMIN] = 1
+    new[6][TERMIOS.VTIME] = 0
+
+    termios.tcsetattr(fd, TERMIOS.TCSANOW, new)
+    c = None
+    try:
+        c = str(os.read(fd, 1).decode('utf-8'))
+    finally:
+        termios.tcsetattr(fd, TERMIOS.TCSAFLUSH, old)
+    return str(c.decode('utf-8'))
+
+
 def instant_input(string=None):
     '''instant_input(string=None)
     Like the built-in input() function, you
@@ -1065,20 +1106,19 @@ def instant_input(string=None):
 
     *This function is useful in making command-line games.
     '''
-    is_present=True
-    try:
-        import msvcrt
-    except:
-        is_present=False
-    if not is_present:
-        raise ModuleNotFoundError(
-            """cryptography module not found.
-    Install cryptography module using 'pip install cryptography'
+    if string!=None:print(string,end='')
+    if 'win' in sys.platform:
+        x=__getinput_win(string)
+    else:
+        x=__getinput_nix(string)
+    return x
 
-    * cryptography is used for encrypting text.""")
 
-    if string!=None:print(string)
-    x=str(msvcrt.getch().decode('utf-8'))
+def get_ip_address():
+    '''Returns the IP address of the computer'''
+    import socket as s
+    x=s.gethostname()
+    x=s.gethostbyname(x)
     return x
 
 
