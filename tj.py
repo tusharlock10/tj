@@ -19,7 +19,7 @@ from email.mime.image import MIMEImage
 
 
 
-__version__ = "2.8.7"
+__version__ = "2.8.8"
 __author__ = "Tushar Jain"
 
 __doc__ = '''
@@ -134,7 +134,10 @@ def color_text(text, text_color='', background_color='',
     if underline:
         L.append(styles['UNDERLINE'])
 
-    L += [tc_int, bc_int]
+    if bc_int=='':
+        L += [tc_int, bc_int]
+    else:
+        L += [tc_int]
     L = [str(i) for i in L]
 
     temp = ';'.join(L)
