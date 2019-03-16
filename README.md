@@ -38,7 +38,7 @@ To check if it is installed correctly, try
 ```
 >>>import tj
 >>>tj.__version__
-'2.8.8'
+'2.8.12'
 >>>
 ```
 <br/>
@@ -75,7 +75,7 @@ This project is licensed under the *MIT License* - see the **[LICENSE.md](LICENS
 * Introduced instant_input(...) function
 <br/>
 
-**This version**: 2.8.8 updated on 11:10 PM 16th March 2019
+**This version**: 2.8.12 updated on 11:25 PM 16th March 2019
 
 * Updated some docuentation
 * Introduced instant_input(...) function
@@ -84,6 +84,7 @@ This project is licensed under the *MIT License* - see the **[LICENSE.md](LICENS
 * Fixed minor bugs
 * Fixed bugs and added get_ip_address(...) function
 * Fixed bug in color_text(...) function
+* Added convert_time(...)
 
 
 ## **Authors**<h3>

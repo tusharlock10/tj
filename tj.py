@@ -17,9 +17,7 @@ from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
 
 
-
-
-__version__ = "2.8.8"
+__version__ = "2.8.12"
 __author__ = "Tushar Jain"
 
 __doc__ = '''
@@ -35,7 +33,7 @@ A simple but powerful module that will provide you many useful methods.
 
 Version: %s
 
-Updated on: 5th March 11:15 PM
+Updated on: 17th March 01:35 PM
 ''' % ( __version__)
 
 
@@ -56,10 +54,10 @@ color_names = list(colors.keys())
 
 
 term_text_colors = {'BLACK': 30, 'RED': 31, 'GREEN': 32, 'YELLOW': 33, 'BLUE': 34,
-                    'PURPLE': 35, 'OLIVE': 36, 'WHITE': 37, '':''}
+                    'PURPLE': 35, 'OLIVE': 36, 'WHITE': 37, '': ''}
 
 term_background_colors = {'BLACK': 40, 'RED': 41, 'GREEN': 42, 'YELLOW': 43, 'BLUE': 44,
-                          'PURPLE': 45, 'OLIVE': 46, 'WHITE': 47, '':''}
+                          'PURPLE': 45, 'OLIVE': 46, 'WHITE': 47, '': ''}
 
 styles = {'NORMAL': 0, 'ITALIC': 3, 'BOLD': 1, 'UNDERLINE': 4}
 
@@ -134,7 +132,7 @@ def color_text(text, text_color='', background_color='',
     if underline:
         L.append(styles['UNDERLINE'])
 
-    if bc_int=='':
+    if background_color!='':
         L += [tc_int, bc_int]
     else:
         L += [tc_int]
@@ -563,6 +561,89 @@ def convert_bytes(size):
     s = s1 + "." + s2
     return "%s %s" % (s, L[i - 1])
 
+
+def convert_time(t, r=2):
+    '''Takes time in seconds as input
+    Converts that time into s, min. , hr. , ms, day etc.
+    And returns the time as a string.
+
+    Also takes an optinal argument 'r', with default value
+    of 2. When round is given, the time is rounded to that decimal
+    digits. If 0 is given, then integer is used instead of float
+
+    The function also takes into account the whether the number is 
+    singular or plural, to give pleasing results.
+
+    eg:
+        >>>tj.convert_time(358610.0321233, r=4)
+        '4.1506 Days'
+        >>>tj.convert_time(86400,0)
+        '1 Day'
+        >>>tj.convert_bytes(0.3867455753)
+        '386.75 ms'
+        >>>tj.convert_bytes(2764)
+        '46.07 min'
+        >>>tj.convert_bytes(2764, r=0)
+        '46 min'
+    '''
+    t=float(t)
+    L=['micro sec', 'ms' ,'s' ,'min' ,'hr' ,'Day' ,'Month' ,'Year' ,'Decade', 'Century']
+    if r==0:r=None
+    else:r=int(r)
+
+    converted_t=t/(10*10*12*30*24*60*60)
+    if converted_t>0.95:
+        if converted_t!=1.0:return f'{round(converted_t,2)} Centuries'
+        else: return f'{round(converted_t,r)} Century'
+
+    converted_t=t/(10*12*30*24*60*60)
+    if converted_t>0.95:
+        if converted_t!=1.0:plural='s'
+        else: plural=''
+        return f'{round(converted_t,r)} Decade{plural}'
+    
+    converted_t=t/(12*30*24*60*60)
+    if converted_t>0.95:
+        if converted_t!=1.0:plural='s'
+        else: plural=''
+        return f'{round(converted_t,r)} Year{plural}'
+    
+    converted_t=t/(30*24*60*60)
+    if converted_t>0.95:
+        if converted_t!=1.0:plural='s'
+        else: plural=''
+        return f'{round(converted_t,r)} Month{plural}'
+    
+    converted_t=t/(24*60*60)
+    if converted_t>0.95:
+        if converted_t!=1.0:plural='s'
+        else: plural=''
+        return f'{round(converted_t,r)} Day{plural}'
+    
+    converted_t=t/(60*60)
+    if converted_t>0.95:
+        return f'{round(converted_t,r)} hr'
+    
+    converted_t=t/(60)
+    if converted_t>0.95:
+        return f'{round(converted_t,r)} min'
+    
+    converted_t=t
+    if converted_t>0.95:
+        return f'{round(converted_t,r)} s'
+    
+    converted_t=t*1000
+    if converted_t>0.95:
+        return f'{round(converted_t,r)} ms'
+    
+    converted_t=t*(1000*1000)
+    if converted_t>0.95:
+        return f'{round(converted_t,r)} micro sec'
+    
+    else:
+        converted_t=t*(1000*1000*1000)
+        return f'{round(converted_t,r)} nano sec'
+    
 
 def file_size(file_path, Flag=False):
     """file_size(file_path, Flag=False)
